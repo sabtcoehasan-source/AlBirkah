@@ -1,0 +1,15 @@
+# تشغيل محلي: من جذر المشروع: docker compose up --build
+# ثم: http://localhost:8080
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+    # جلسة/تخزين داخل الحاوية؛ لإنتاج Render يُنصح بمراقبة بيانات storage
+    volumes:
+      - app-storage:/var/www/html/storage
+
+volumes:
+  app-storage:

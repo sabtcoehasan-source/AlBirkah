@@ -1,0 +1,10 @@
+# نشر على Render: New → Blueprint → ربط المستودع أو رفع الملف.
+# أو: Web Service → Environment Docker → Dockerfile في الجذر.
+services:
+  - type: web
+    name: albaraka-web
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /index.php

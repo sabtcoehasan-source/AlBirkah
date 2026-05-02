@@ -1,0 +1,12 @@
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+render.yaml
+**/.DS_Store
+Thumbs.db
+vendor
+*.md
+.cursor
+agent-transcripts
