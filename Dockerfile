@@ -1,10 +1,18 @@
 # PHP + Apache — متوافق مع Render (يستمع على متغير البيئة PORT)
 FROM php:8.2-apache-bookworm
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 RUN a2enmod rewrite headers
 
-# أداء PHP في الإنتاج
-RUN docker-php-ext-install -j"$(nproc)" opcache
+# git + unzip: مطلوبان لـ Composer عند جلب الحزم من الأرشيف
+# ext-curl: مطلوب من pusher/guzzle — بدونه يفشل `composer install` (فحص المنصة)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    unzip \
+    libcurl4-openssl-dev \
+    && docker-php-ext-install -j"$(nproc)" curl opcache \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
